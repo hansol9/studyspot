@@ -29,7 +29,7 @@ class DatabaseHelper {
     );
   }
 
-  /// Create the study_spots table.
+  /// Create the study_spots table and insert sample data.
   Future<void> _createDB(Database db, int version) async {
     await db.execute('''
       CREATE TABLE study_spots (
@@ -47,6 +47,97 @@ class DatabaseHelper {
         created_at TEXT NOT NULL
       )
     ''');
+
+    // Insert sample data so the app is not empty on first launch
+    await _insertSampleData(db);
+  }
+
+  /// Insert sample study spots for demonstration.
+  Future<void> _insertSampleData(Database db) async {
+    final sampleSpots = [
+      {
+        'name': 'Conestoga College Library',
+        'category': 'Library',
+        'address': '299 Doon Valley Dr, Kitchener, ON',
+        'latitude': 43.3894,
+        'longitude': -80.4041,
+        'rating': 4.2,
+        'amenities': 'WiFi,Quiet,Power',
+        'notes': 'Great quiet zone on the second floor',
+        'image_path': '',
+        'is_favorite': 1,
+        'created_at': DateTime.now().subtract(const Duration(days: 10)).toIso8601String(),
+      },
+      {
+        'name': 'Settlement Cafe',
+        'category': 'Cafe',
+        'address': '1430 King St N, St Jacobs, ON',
+        'latitude': 43.5153,
+        'longitude': -80.5536,
+        'rating': 4.7,
+        'amenities': 'WiFi,Power,Food',
+        'notes': 'Excellent coffee and spacious seating',
+        'image_path': '',
+        'is_favorite': 1,
+        'created_at': DateTime.now().subtract(const Duration(days: 8)).toIso8601String(),
+      },
+      {
+        'name': 'Williams Fresh Cafe',
+        'category': 'Cafe',
+        'address': '170 University Ave W, Waterloo, ON',
+        'latitude': 43.4680,
+        'longitude': -80.5280,
+        'rating': 3.8,
+        'amenities': 'WiFi,Food',
+        'notes': 'Open late, good for evening study sessions',
+        'image_path': '',
+        'is_favorite': 0,
+        'created_at': DateTime.now().subtract(const Duration(days: 5)).toIso8601String(),
+      },
+      {
+        'name': 'Kitchener Public Library',
+        'category': 'Library',
+        'address': '85 Queen St N, Kitchener, ON',
+        'latitude': 43.4530,
+        'longitude': -80.4927,
+        'rating': 4.5,
+        'amenities': 'WiFi,Quiet,Power,Printing',
+        'notes': 'Modern building with lots of natural light',
+        'image_path': '',
+        'is_favorite': 0,
+        'created_at': DateTime.now().subtract(const Duration(days: 3)).toIso8601String(),
+      },
+      {
+        'name': 'Communitech Hub',
+        'category': 'Co-working',
+        'address': '151 Charles St W, Kitchener, ON',
+        'latitude': 43.4500,
+        'longitude': -80.4930,
+        'rating': 4.0,
+        'amenities': 'WiFi,Power,Quiet',
+        'notes': 'Tech hub atmosphere, good for group projects',
+        'image_path': '',
+        'is_favorite': 0,
+        'created_at': DateTime.now().subtract(const Duration(days: 1)).toIso8601String(),
+      },
+      {
+        'name': 'Victoria Park',
+        'category': 'Outdoor',
+        'address': '80 Schneider Ave, Kitchener, ON',
+        'latitude': 43.4486,
+        'longitude': -80.4870,
+        'rating': 3.5,
+        'amenities': 'Quiet',
+        'notes': 'Nice outdoor spot in good weather, benches available',
+        'image_path': '',
+        'is_favorite': 0,
+        'created_at': DateTime.now().toIso8601String(),
+      },
+    ];
+
+    for (final spot in sampleSpots) {
+      await db.insert('study_spots', spot);
+    }
   }
 
   // ==================== CREATE ====================
