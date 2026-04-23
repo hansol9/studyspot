@@ -116,6 +116,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 ),
               ),
             ),
+            const SizedBox(height: 4),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                '${_favorites.length} spots found',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey[500],
+                ),
+              ),
+            ),
 
 
             Expanded(
