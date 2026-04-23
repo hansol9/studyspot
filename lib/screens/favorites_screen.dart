@@ -33,7 +33,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     });
   }
 
-  /// Filter out spots that have not been marked as favorites
+  /// Filter out spots that have not been marked as favorites by the user
   void _applyFavorites() {
     List<StudySpot> result = _allSpots;
     _favorites = result.where((spot) => spot.isFavorite).toList();
